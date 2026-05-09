@@ -1,0 +1,33 @@
+{
+  "name": "mprovider-e2e",
+  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "mprovider-e2e/src",
+  "targets": {
+    "e2e": {
+      "executor": "@nx/cypress:cypress",
+      "options": {
+        "cypressConfig": "mprovider-e2e/cypress.config.ts",
+        "testingType": "e2e",
+        "devServerTarget": "mprovider:serve"
+      },
+      "configurations": {
+        "production": {
+          "devServerTarget": "mprovider:serve:production"
+        },
+        "ci": {
+          "devServerTarget": "mprovider:serve-static"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["mprovider-e2e/**/*.{js,ts}"]
+      }
+    }
+  },
+  "implicitDependencies": ["mprovider"],
+  "tags": []
+}

@@ -1,0 +1,86 @@
+{
+  "name": "mprovider",
+  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "mprovider/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "compiler": "babel",
+        "outputPath": "dist/mprovider",
+        "index": "mprovider/src/index.html",
+        "baseHref": "/",
+        "main": "mprovider/src/main.tsx",
+        "tsConfig": "mprovider/tsconfig.app.json",
+        "assets": ["mprovider/src/favicon.ico", "mprovider/src/assets"],
+        "styles": ["mprovider/src/styles.css"],
+        "scripts": [],
+        "isolatedConfig": true,
+        "webpackConfig": "mprovider/webpack.config.js"
+      },
+      "configurations": {
+        "development": {
+          "extractLicenses": false,
+          "optimization": false,
+          "sourceMap": true,
+          "vendorChunk": true
+        },
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "mprovider/src/environments/environment.ts",
+              "with": "mprovider/src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx/webpack:dev-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "mprovider:build",
+        "hmr": true
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "mprovider:build:development"
+        },
+        "production": {
+          "buildTarget": "mprovider:build:production",
+          "hmr": false
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["mprovider/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "serve-static": {
+      "executor": "@nx/web:file-server",
+      "options": {
+        "buildTarget": "mprovider:build"
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "mprovider/jest.config.ts"
+      }
+    }
+  },
+  "tags": []
+}

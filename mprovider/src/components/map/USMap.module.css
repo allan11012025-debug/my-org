@@ -1,0 +1,15 @@
+/* USMap.css */
+.mapcontainer {
+  top:-140px;
+  width: 95vw;       /* full viewport width */
+  height: 100vh;      /* full viewport height */
+  margin: 0;
+  padding: 0;
+  overflow: hidden;   /* prevent scrollbars */
+}
+
+.mapcontainer svg {
+  width: 100%;
+  height: 100%;
+  display: block;     /* removes inline gaps */
+}
